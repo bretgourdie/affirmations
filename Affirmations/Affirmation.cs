@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Timers;
-using System.DirectoryServices.AccountManagement;
+using System.Management;
 
 namespace Affirmations
 {
@@ -132,7 +132,9 @@ namespace Affirmations
         private string getFullName()
         {
             logToEventLog("About to get full name");
-            var name = UserPrincipal.Current.DisplayName;
+            var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
+            var collection = searcher.Get();
+            var name = (string)collection.Cast<ManagementBaseObject>().First()["UserName"];
             logToEventLog("Name is \"" + name + "\"");
 
             return name;
