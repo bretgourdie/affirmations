@@ -33,6 +33,7 @@
             // 
             // affirmationProcessInstaller1
             // 
+            this.affirmationProcessInstaller1.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.affirmationProcessInstaller1.Password = null;
             this.affirmationProcessInstaller1.Username = null;
             // 
