@@ -16,6 +16,7 @@ namespace Affirmations
     public partial class Affirmation : ServiceBase
     {
         Timer timer;
+        Random rand;
 
         public Affirmation()
         {
@@ -56,14 +57,25 @@ namespace Affirmations
                 + String.Join("\", \"", args) 
                 + "\"])");
 
-            var rand = new Random();
-
-            timer.Interval = rand.Next(60000, 150000);
+            setTimerInterval(this.timer);
         }
 
         protected override void OnStop()
         {
             Console.WriteLine("In OnEnd()");
+        }
+
+        private void setTimerInterval(Timer timer)
+        {
+            var rand = new Random();
+
+            var minutesToWait = rand.Next(15, 60);
+
+            var secondsToWait = minutesToWait * 60;
+
+            var millisecondsToWait = secondsToWait * 1000;
+
+            timer.Interval = millisecondsToWait;
         }
 
         private StringBuilder generateGreeting()
