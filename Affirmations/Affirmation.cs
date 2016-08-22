@@ -16,6 +16,7 @@ namespace Affirmations
     public partial class Affirmation : ServiceBase
     {
         Timer timer;
+        string processTitle = "SDI Periodic Encouragement Program";
 
         public Affirmation()
         {
@@ -42,7 +43,7 @@ namespace Affirmations
 
             global::System.Windows.Forms.MessageBox.Show(
                 thingToSay.ToString(),
-                "SDI Periodic Encouragement Program",
+                processTitle,
                 System.Windows.Forms.MessageBoxButtons.OK,
                 System.Windows.Forms.MessageBoxIcon.Information,
                 System.Windows.Forms.MessageBoxDefaultButton.Button1,
