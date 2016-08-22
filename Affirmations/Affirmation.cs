@@ -60,12 +60,18 @@ namespace Affirmations
         {
             var thingToSay = new StringBuilder();
 
-            thingToSay.Append(generateGreeting());
+            var greeting = generateGreeting();
+            thingToSay.Append(greeting);
+
+            logToEventLog("Greeting: \"" + greeting + "\"");
 
             thingToSay.AppendLine();
             thingToSay.AppendLine();
 
-            thingToSay.Append(generateCondition());
+            var condition = generateCondition();
+            thingToSay.Append(condition);
+
+            logToEventLog("Condition: \"" + condition + "\"");
 
             logToEventLog("Saying status \"" + thingToSay.ToString() + "\"");
 
@@ -125,7 +131,12 @@ namespace Affirmations
 
         private string getFullName()
         {
-            return UserPrincipal.Current.DisplayName;
+            logToEventLog("About to get full name");
+            var name = UserPrincipal.Current.DisplayName;
+            logToEventLog("Name is \"" + name + "\"");
+
+            return name;
+            
         }
 
         private void sayThing(StringBuilder thingToSay)
