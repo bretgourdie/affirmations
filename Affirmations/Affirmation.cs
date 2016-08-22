@@ -33,7 +33,7 @@ namespace Affirmations
             timer.Elapsed += timer_Elapsed;
         }
 
-        void timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             var thingToSay = new StringBuilder();
 
