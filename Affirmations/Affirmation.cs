@@ -35,19 +35,9 @@ namespace Affirmations
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            var thingToSay = new StringBuilder();
 
-            thingToSay.Append(generateGreeting());
 
-            thingToSay.Append(generateCondition());
 
-            global::System.Windows.Forms.MessageBox.Show(
-                thingToSay.ToString(),
-                processTitle,
-                System.Windows.Forms.MessageBoxButtons.OK,
-                System.Windows.Forms.MessageBoxIcon.Information,
-                System.Windows.Forms.MessageBoxDefaultButton.Button1,
-                System.Windows.Forms.MessageBoxOptions.ServiceNotification);
         }
 
         protected override void OnStart(string[] args)
@@ -63,6 +53,64 @@ namespace Affirmations
         protected override void OnStop()
         {
             Console.WriteLine("In OnEnd()");
+
+            sayGoodBye();
+        }
+
+        private void sayStatus()
+        {
+            var thingToSay = new StringBuilder();
+
+            thingToSay.Append(generateGreeting());
+
+            thingToSay.Append(generateCondition());
+
+            sayThing(thingToSay);
+        }
+
+        private void sayGoodBye()
+        {
+            var thingToSay = new StringBuilder();
+            var condition = true;
+
+            thingToSay.Append("Congratulations, ");
+            thingToSay.Append(getFullName());
+            thingToSay.Append("!");
+
+            thingToSay.AppendLine();
+            thingToSay.AppendLine();
+
+            thingToSay.Append("We appreciate all of your ");
+            var degreeOfWork = condition ? "efficient" : "hard";
+            thingToSay.Append(degreeOfWork);
+
+            thingToSay.Append(" work. Please stand by to be ");
+            var employmentStatus = condition ? "promoted" : "fired";
+            thingToSay.Append(employmentStatus);
+            thingToSay.Append(".");
+
+            sayThing(thingToSay);
+        }
+
+        private string getFullName()
+        {
+            return UserPrincipal.Current.DisplayName;
+        }
+
+        private void sayThing(StringBuilder thingToSay)
+        {
+            sayThing(thingToSay.ToString());
+        }
+
+        private void sayThing(string thingToSay)
+        {
+            global::System.Windows.Forms.MessageBox.Show(
+                thingToSay,
+                processTitle,
+                System.Windows.Forms.MessageBoxButtons.OK,
+                System.Windows.Forms.MessageBoxIcon.Information,
+                System.Windows.Forms.MessageBoxDefaultButton.Button1,
+                System.Windows.Forms.MessageBoxOptions.ServiceNotification);
         }
 
         private void setTimerInterval(Timer timer)
@@ -84,7 +132,7 @@ namespace Affirmations
 
             greeting.Append("Hello, ");
 
-            var fullName = UserPrincipal.Current.DisplayName;
+            var fullName = getFullName();
             greeting.Append(fullName);
 
             greeting.Append("!");
