@@ -63,6 +63,9 @@ namespace Affirmations
 
             thingToSay.Append(generateGreeting());
 
+            thingToSay.AppendLine();
+            thingToSay.AppendLine();
+
             thingToSay.Append(generateCondition());
 
             sayThing(thingToSay);
@@ -136,9 +139,6 @@ namespace Affirmations
             greeting.Append(fullName);
 
             greeting.Append("!");
-            greeting.AppendLine();
-            greeting.AppendLine();
-
             return greeting;
         }
 
