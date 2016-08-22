@@ -35,6 +35,7 @@ namespace Affirmations
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            logToEventLog("Timer elapsed!");
             sayStatus();
         }
 
@@ -65,6 +66,8 @@ namespace Affirmations
             thingToSay.AppendLine();
 
             thingToSay.Append(generateCondition());
+
+            logToEventLog("Saying status \"" + thingToSay.ToString() + "\"");
 
             sayThing(thingToSay);
         }
@@ -115,6 +118,8 @@ namespace Affirmations
             thingToSay.Append(employmentStatus);
             thingToSay.Append(".");
 
+            logToEventLog("Saying goodbye \"" + thingToSay.ToString() + "\"");
+
             sayThing(thingToSay);
         }
 
@@ -150,6 +155,10 @@ namespace Affirmations
             var millisecondsToWait = secondsToWait * 1000;
 
             timer.Interval = millisecondsToWait;
+
+            timer.Start();
+
+            logToEventLog("Timer started with interval " + millisecondsToWait.ToString());
         }
 
         private StringBuilder generateGreeting()
