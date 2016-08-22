@@ -16,7 +16,6 @@ namespace Affirmations
     public partial class Affirmation : ServiceBase
     {
         Timer timer;
-        Random rand;
 
         public Affirmation()
         {
