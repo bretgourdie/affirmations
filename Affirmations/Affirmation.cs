@@ -20,14 +20,14 @@ namespace Affirmations
 
         public Affirmation()
         {
-            Console.WriteLine("In constructor");
+            logToEventLog("In constructor");
             InitializeComponent();
             initializeClass();
         }
 
         private void initializeClass()
         {
-            Console.WriteLine("In initializeClass()");
+            logToEventLog("In initializeClass()");
             timer = new Timer();
 
             timer.Elapsed += timer_Elapsed;
@@ -35,14 +35,12 @@ namespace Affirmations
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-
-
-
+            sayStatus();
         }
 
         protected override void OnStart(string[] args)
         {
-            Console.WriteLine(
+            logToEventLog(
                 "In OnStart([\"" 
                 + String.Join("\", \"", args) 
                 + "\"])");
@@ -52,7 +50,7 @@ namespace Affirmations
 
         protected override void OnStop()
         {
-            Console.WriteLine("In OnEnd()");
+            logToEventLog("In OnEnd()");
 
             sayGoodBye();
         }
@@ -69,6 +67,31 @@ namespace Affirmations
             thingToSay.Append(generateCondition());
 
             sayThing(thingToSay);
+        }
+
+        [Conditional("DEBUG")]
+        private void logToEventLog(string message, string log, EventLogEntryType entryType)
+        {
+            var source = "SDI Periodic Encouragement Service";
+
+            if (!EventLog.SourceExists(source))
+            {
+                EventLog.CreateEventSource(source, log);
+            }
+
+            EventLog.WriteEntry(source, message, entryType);
+        }
+
+        [Conditional("DEBUG")]
+        private void logToEventLog(string message)
+        {
+            logToEventLog(message, "Application", EventLogEntryType.Information);
+        }
+
+        [Conditional("DEBUG")]
+        private void logToEventLog(string message, EventLogEntryType entryType)
+        {
+            logToEventLog(message, "Application", entryType);
         }
 
         private void sayGoodBye()
