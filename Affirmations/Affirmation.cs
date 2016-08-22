@@ -69,7 +69,7 @@ namespace Affirmations
         {
             var rand = new Random();
 
-            var minutesToWait = rand.Next(15, 60);
+            var minutesToWait = rand.Next(1, 4);
 
             var secondsToWait = minutesToWait * 60;
 
