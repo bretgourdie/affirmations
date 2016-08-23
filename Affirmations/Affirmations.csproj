@@ -73,9 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Affirmation.cs" />
-    <Compile Include="Affirmation.Designer.cs">
-      <DependentUpon>Affirmation.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

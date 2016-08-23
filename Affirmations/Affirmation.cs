@@ -20,7 +20,6 @@ namespace Affirmations
 
         public Affirmation()
         {
-            InitializeComponent();
             initializeClass();
         }
 
