@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 using System.Timers;
 using System.Management;
+using System.DirectoryServices;
 
 namespace Affirmations
 {
@@ -135,9 +136,11 @@ namespace Affirmations
             var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
             var collection = searcher.Get();
             var name = (string)collection.Cast<ManagementBaseObject>().First()["UserName"];
-            logToEventLog("Name is \"" + name + "\"");
+            var directoryEntry = new DirectoryEntry("WinNT://" + name.Replace('/', '\\'));
+            var displayName = directoryEntry.Properties["fullName"].Value.ToString();
+            logToEventLog("Name is \"" + displayName + "\"");
 
-            return name;
+            return displayName;
             
         }
 
