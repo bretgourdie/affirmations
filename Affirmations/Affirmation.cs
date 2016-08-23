@@ -32,7 +32,7 @@ namespace Affirmations
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            logToEventLog("Timer elapsed!");
+            logToConsole("Timer elapsed!");
             sayStatus();
             setTimerInterval(this.timer);
         }
@@ -60,34 +60,15 @@ namespace Affirmations
             var condition = generateCondition();
             thingToSay.Append(condition);
 
-            logToEventLog("Saying status \"" + thingToSay.ToString() + "\"");
+            logToConsole("Saying status \"" + thingToSay.ToString() + "\"");
 
             sayThing(thingToSay);
         }
 
         [Conditional("DEBUG")]
-        private void logToEventLog(string message, string log, EventLogEntryType entryType)
+        private void logToConsole(string message)
         {
-            var source = "SDI Periodic Encouragement Service";
-
-            if (!EventLog.SourceExists(source))
-            {
-                EventLog.CreateEventSource(source, log);
-            }
-
-            EventLog.WriteEntry(source, message, entryType);
-        }
-
-        [Conditional("DEBUG")]
-        private void logToEventLog(string message)
-        {
-            logToEventLog(message, "Application", EventLogEntryType.Information);
-        }
-
-        [Conditional("DEBUG")]
-        private void logToEventLog(string message, EventLogEntryType entryType)
-        {
-            logToEventLog(message, "Application", entryType);
+            Console.WriteLine("DEBUG: " + message);
         }
 
         private void sayGoodBye()
@@ -111,7 +92,7 @@ namespace Affirmations
             thingToSay.Append(employmentStatus);
             thingToSay.Append(".");
 
-            logToEventLog("Saying goodbye \"" + thingToSay.ToString() + "\"");
+            logToConsole("Saying goodbye \"" + thingToSay.ToString() + "\"");
 
             sayThing(thingToSay);
         }
@@ -127,16 +108,14 @@ namespace Affirmations
             try
             {
                 var directoryEntrySearch = "WinNT://" + name.Replace('\\', '/');
-                logToEventLog("Searching for \"" + directoryEntrySearch + "\"");
+                logToConsole("Searching for \"" + directoryEntrySearch + "\"");
                 var directoryEntry = new DirectoryEntry(directoryEntrySearch);
                 displayName = directoryEntry.Properties["fullName"].Value.ToString();
-                logToEventLog("Name is \"" + displayName + "\"");
+                logToConsole("Name is \"" + displayName + "\"");
             }
             catch (NullReferenceException)
             {
-                logToEventLog(
-                    "Name not found, using \"" + displayName + "\"", 
-                    EventLogEntryType.Error);
+                logToConsole("Name not found, using \"" + displayName + "\"");
             }
 
             return displayName;
@@ -172,7 +151,7 @@ namespace Affirmations
 
             timer.Start();
 
-            logToEventLog(
+            logToConsole(
                 "Timer started with interval " 
                 + millisecondsToWait.ToString()
                 + " ("
