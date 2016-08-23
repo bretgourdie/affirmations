@@ -11,6 +11,7 @@ using System.Timers;
 using System.Management;
 using System.DirectoryServices;
 using swf = System.Windows.Forms;
+using System.Drawing;
 
 namespace Affirmations
 {
@@ -127,7 +128,7 @@ namespace Affirmations
 
         private void sayThing(string thingToSay, bool isPositive)
         {
-            var notifyIcon = new swf.NotifyIcon();
+            var notifyIcon = System.Drawing.SystemIcons.Information;
             var balloonTipIcon = isPositive ? swf.ToolTipIcon.Info : swf.ToolTipIcon.Warning;
 
             using (var notification = new System.Windows.Forms.NotifyIcon())
