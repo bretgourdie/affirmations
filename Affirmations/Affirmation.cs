@@ -123,7 +123,7 @@ namespace Affirmations
             var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
             var collection = searcher.Get();
             var name = (string)collection.Cast<ManagementBaseObject>().First()["UserName"];
-            var directoryEntrySearch = "WinNT://" + name.Replace('/', '\\');
+            var directoryEntrySearch = "WinNT://" + name.Replace('\\', '/');
             logToEventLog("Searching for \"" + directoryEntrySearch + "\"");
             var directoryEntry = new DirectoryEntry(directoryEntrySearch);
 
