@@ -14,6 +14,8 @@ namespace Affirmations
         static void Main()
         {
             new Affirmation();
+
+            Console.ReadKey(true);
         }
     }
 }
