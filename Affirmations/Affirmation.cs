@@ -14,7 +14,7 @@ using System.DirectoryServices;
 
 namespace Affirmations
 {
-    public partial class Affirmation : ServiceBase
+    public partial class Affirmation 
     {
         Timer timer;
         string processTitle = "SDI Periodic Encouragement Program";
