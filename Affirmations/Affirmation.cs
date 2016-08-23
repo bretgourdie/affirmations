@@ -173,7 +173,8 @@ namespace Affirmations
             greeting.Append("Hello, ");
 
             var fullName = getFullName();
-            greeting.Append(fullName);
+            var firstName = fullName.Split(' ')[0];
+            greeting.Append(firstName);
 
             greeting.Append("!");
             return greeting;
