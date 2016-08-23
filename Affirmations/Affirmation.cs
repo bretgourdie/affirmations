@@ -25,9 +25,11 @@ namespace Affirmations
 
         private void initializeClass()
         {
-            timer = new Timer();
+            this.timer = new Timer();
 
-            timer.Elapsed += timer_Elapsed;
+            this.timer.Elapsed += timer_Elapsed;
+
+            setTimerInterval(this.timer);
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -35,16 +37,6 @@ namespace Affirmations
             logToConsole("Timer elapsed!");
             sayStatus();
             setTimerInterval(this.timer);
-        }
-
-        protected override void OnStart(string[] args)
-        {
-            setTimerInterval(this.timer);
-        }
-
-        protected override void OnStop()
-        {
-            sayGoodBye();
         }
 
         private void sayStatus()
