@@ -64,15 +64,11 @@ namespace Affirmations
             var greeting = generateGreeting();
             thingToSay.Append(greeting);
 
-            logToEventLog("Greeting: \"" + greeting + "\"");
-
             thingToSay.AppendLine();
             thingToSay.AppendLine();
 
             var condition = generateCondition();
             thingToSay.Append(condition);
-
-            logToEventLog("Condition: \"" + condition + "\"");
 
             logToEventLog("Saying status \"" + thingToSay.ToString() + "\"");
 
