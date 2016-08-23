@@ -198,6 +198,8 @@ namespace Affirmations
             var followupMessage = 
                 isPositive ? "Keep up the good work!" : "Keep working hard!";
 
+            conditionSaying.Append(followupMessage);
+
             return conditionSaying;
         }
     }
