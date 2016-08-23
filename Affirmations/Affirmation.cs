@@ -21,14 +21,12 @@ namespace Affirmations
 
         public Affirmation()
         {
-            logToEventLog("In constructor");
             InitializeComponent();
             initializeClass();
         }
 
         private void initializeClass()
         {
-            logToEventLog("In initializeClass()");
             timer = new Timer();
 
             timer.Elapsed += timer_Elapsed;
@@ -38,6 +36,7 @@ namespace Affirmations
         {
             logToEventLog("Timer elapsed!");
             sayStatus();
+            setTimerInterval(this.timer);
         }
 
         protected override void OnStart(string[] args)
