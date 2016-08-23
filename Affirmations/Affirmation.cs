@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Management;
 using System.DirectoryServices;
+using swf = System.Windows.Forms;
 
 namespace Affirmations
 {
@@ -49,12 +50,19 @@ namespace Affirmations
             thingToSay.AppendLine();
             thingToSay.AppendLine();
 
-            var condition = generateCondition();
+            var isPositive = calculatePositivity();
+
+            var condition = generateCondition(isPositive);
             thingToSay.Append(condition);
 
             logToConsole("Saying status \"" + thingToSay.ToString() + "\"");
 
-            sayThing(thingToSay);
+            sayThing(thingToSay, isPositive);
+        }
+
+        private bool calculatePositivity()
+        {
+            return true;
         }
 
         [Conditional("DEBUG")]
@@ -63,10 +71,9 @@ namespace Affirmations
             Console.WriteLine("DEBUG: " + message);
         }
 
-        private void sayGoodBye()
+        private void sayGoodBye(bool isPositive)
         {
             var thingToSay = new StringBuilder();
-            var condition = true;
 
             thingToSay.Append("Congratulations, ");
             thingToSay.Append(getFullName());
@@ -76,17 +83,17 @@ namespace Affirmations
             thingToSay.AppendLine();
 
             thingToSay.Append("We appreciate all of your ");
-            var degreeOfWork = condition ? "efficient" : "hard";
+            var degreeOfWork = isPositive ? "efficient" : "hard";
             thingToSay.Append(degreeOfWork);
 
             thingToSay.Append(" work. Please stand by to be ");
-            var employmentStatus = condition ? "promoted" : "fired";
+            var employmentStatus = isPositive ? "promoted" : "fired";
             thingToSay.Append(employmentStatus);
             thingToSay.Append(".");
 
             logToConsole("Saying goodbye \"" + thingToSay.ToString() + "\"");
 
-            sayThing(thingToSay);
+            sayThing(thingToSay, isPositive);
         }
 
         private string getFullName()
@@ -113,20 +120,27 @@ namespace Affirmations
             return displayName;
         }
 
-        private void sayThing(StringBuilder thingToSay)
+        private void sayThing(StringBuilder thingToSay, bool isPositive)
         {
-            sayThing(thingToSay.ToString());
+            sayThing(thingToSay.ToString(), isPositive);
         }
 
-        private void sayThing(string thingToSay)
+        private void sayThing(string thingToSay, bool isPositive)
         {
-            global::System.Windows.Forms.MessageBox.Show(
-                thingToSay,
-                processTitle,
-                System.Windows.Forms.MessageBoxButtons.OK,
-                System.Windows.Forms.MessageBoxIcon.Information,
-                System.Windows.Forms.MessageBoxDefaultButton.Button1,
-                System.Windows.Forms.MessageBoxOptions.ServiceNotification);
+            var notifyIcon = new swf.NotifyIcon();
+            var balloonTipIcon = isPositive ? swf.ToolTipIcon.Info : swf.ToolTipIcon.Warning;
+
+            using (var notification = new System.Windows.Forms.NotifyIcon())
+            {
+                notification.Visible = true;
+                notification.Icon = notifyIcon;
+                notification.BalloonTipTitle = this.processTitle;
+                notification.BalloonTipText = thingToSay;
+
+                notification.ShowBalloonTip(5);
+
+                System.Threading.Thread.Sleep(10000);
+            }
         }
 
         private void setTimerInterval(Timer timer)
@@ -164,14 +178,13 @@ namespace Affirmations
             return greeting;
         }
 
-        private StringBuilder generateCondition()
+        private StringBuilder generateCondition(bool isPositive)
         {
             var conditionSaying = new StringBuilder();
-            var condition = true;
 
             conditionSaying.Append("You've been doing ");
             
-            var curCondition = condition ? "well" : "ok";
+            var curCondition = isPositive ? "well" : "OK";
             
             conditionSaying.Append(curCondition);
 
@@ -181,7 +194,7 @@ namespace Affirmations
             conditionSaying.AppendLine();
 
             var followupMessage = 
-                condition ? "Keep up the good work!" : "Keep working hard!";
+                isPositive ? "Keep up the good work!" : "Keep working hard!";
 
             return conditionSaying;
         }
