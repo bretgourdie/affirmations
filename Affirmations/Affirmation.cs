@@ -123,17 +123,18 @@ namespace Affirmations
             var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
             var collection = searcher.Get();
             var name = (string)collection.Cast<ManagementBaseObject>().First()["UserName"];
-            var directoryEntrySearch = "WinNT://" + name.Replace('\\', '/');
-            logToEventLog("Searching for \"" + directoryEntrySearch + "\"");
-            var directoryEntry = new DirectoryEntry(directoryEntrySearch);
-
             var displayName = name;
-            if (directoryEntry != null)
+
+            // Going for the gold
+            try
             {
+                var directoryEntrySearch = "WinNT://" + name.Replace('\\', '/');
+                logToEventLog("Searching for \"" + directoryEntrySearch + "\"");
+                var directoryEntry = new DirectoryEntry(directoryEntrySearch);
                 displayName = directoryEntry.Properties["fullName"].Value.ToString();
                 logToEventLog("Name is \"" + displayName + "\"");
             }
-            else
+            catch (NullReferenceException)
             {
                 logToEventLog(
                     "Name not found, using \"" + displayName + "\"", 
