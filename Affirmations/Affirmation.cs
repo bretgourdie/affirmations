@@ -46,8 +46,6 @@ namespace Affirmations
 
         protected override void OnStop()
         {
-            logToEventLog("In OnEnd()");
-
             sayGoodBye();
         }
 
