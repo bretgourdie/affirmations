@@ -41,11 +41,6 @@ namespace Affirmations
 
         protected override void OnStart(string[] args)
         {
-            logToEventLog(
-                "In OnStart([\"" 
-                + String.Join("\", \"", args) 
-                + "\"])");
-
             setTimerInterval(this.timer);
         }
 
