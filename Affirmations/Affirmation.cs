@@ -132,16 +132,27 @@ namespace Affirmations
 
         private string getFullName()
         {
-            logToEventLog("About to get full name");
             var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
             var collection = searcher.Get();
             var name = (string)collection.Cast<ManagementBaseObject>().First()["UserName"];
-            var directoryEntry = new DirectoryEntry("WinNT://" + name.Replace('/', '\\'));
-            var displayName = directoryEntry.Properties["fullName"].Value.ToString();
-            logToEventLog("Name is \"" + displayName + "\"");
+            var directoryEntrySearch = "WinNT://" + name.Replace('/', '\\');
+            logToEventLog("Searching for \"" + directoryEntrySearch + "\"");
+            var directoryEntry = new DirectoryEntry(directoryEntrySearch);
+
+            var displayName = name;
+            if (directoryEntry != null)
+            {
+                displayName = directoryEntry.Properties["fullName"].Value.ToString();
+                logToEventLog("Name is \"" + displayName + "\"");
+            }
+            else
+            {
+                logToEventLog(
+                    "Name not found, using \"" + displayName + "\"", 
+                    EventLogEntryType.Error);
+            }
 
             return displayName;
-            
         }
 
         private void sayThing(StringBuilder thingToSay)
