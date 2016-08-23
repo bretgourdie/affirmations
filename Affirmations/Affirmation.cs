@@ -173,7 +173,12 @@ namespace Affirmations
 
             timer.Start();
 
-            logToEventLog("Timer started with interval " + millisecondsToWait.ToString());
+            logToEventLog(
+                "Timer started with interval " 
+                + millisecondsToWait.ToString()
+                + " ("
+                + minutesToWait.ToString() 
+                + " minutes)");
         }
 
         private StringBuilder generateGreeting()
