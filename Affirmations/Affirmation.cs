@@ -97,6 +97,7 @@ namespace Affirmations
             sayThing(thingToSay, isPositive);
         }
 
+
         private string getFullName()
         {
             var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
