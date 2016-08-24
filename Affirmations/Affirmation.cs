@@ -71,7 +71,7 @@ namespace Affirmations
 
             var isPositive = calculatePositivity(metrics);
 
-            var condition = generateCondition(isPositive);
+            var condition = generateCondition(metrics);
             thingToSay.Append(condition);
 
             logToConsole("Saying status \"" + thingToSay.ToString() + "\"");
@@ -187,23 +187,25 @@ namespace Affirmations
             return greeting;
         }
 
-        private StringBuilder generateCondition(bool isPositive)
+        private StringBuilder generateCondition(Metrics metrics)
         {
             var conditionSaying = new StringBuilder();
 
             conditionSaying.Append("You've been doing ");
             
-            var curCondition = isPositive ? "well" : "OK";
+            var curCondition = metrics.IsPositive ? "well" : "OK";
             
             conditionSaying.Append(curCondition);
 
-            conditionSaying.Append(" today.");
+            conditionSaying.AppendLine(" today.");
 
-            conditionSaying.AppendLine();
+            conditionSaying.AppendLine("Mouse Clicks: " + metrics.MouseClicks);
+
+            conditionSaying.AppendLine("Keyboard Presses: " + metrics.KeyboardPresses);
             conditionSaying.AppendLine();
 
             var followupMessage = 
-                isPositive ? "Keep up the good work!" : "Keep working hard!";
+                metrics.IsPositive ? "Keep up the good work!" : "Keep working hard!";
 
             conditionSaying.Append(followupMessage);
 
