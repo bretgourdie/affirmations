@@ -14,6 +14,12 @@ namespace Affirmations
         public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
+            listenForHooks();
+        }
+
+        protected void listenForHooks()
+        {
+
         }
 
         public void CalculateMetrics()
