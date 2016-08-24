@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Affirmations
 {
-    public class Metrics
+    public class Metrics : IDisposable
     {
         public bool IsPositive { get; protected set; }
         public double Milliseconds { get; protected set; }
@@ -29,6 +29,11 @@ namespace Affirmations
         {
             this.IsPositive = true;
             this.IsCalculated = true;
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }
