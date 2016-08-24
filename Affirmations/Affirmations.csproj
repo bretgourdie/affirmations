@@ -98,6 +98,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManagedHooks\ManagedHooks.csproj">
+      <Project>{c88b254c-9091-4d14-b8ce-8a79135e9da0}</Project>
+      <Name>ManagedHooks</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
