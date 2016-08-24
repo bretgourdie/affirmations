@@ -134,7 +134,7 @@ namespace Affirmations
 
                 notification.ShowBalloonTip(5);
 
-                System.Threading.Thread.Sleep(100000);
+                System.Threading.Thread.Sleep(10000);
             }
         }
 
