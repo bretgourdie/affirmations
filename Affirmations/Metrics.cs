@@ -14,10 +14,9 @@ namespace Affirmations
         public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
-            calculateMetrics();
         }
 
-        protected void calculateMetrics()
+        public void CalculateMetrics()
         {
             this.IsPositive = true;
         }
