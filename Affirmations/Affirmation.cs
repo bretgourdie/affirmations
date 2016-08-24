@@ -12,7 +12,6 @@ using System.Management;
 using System.DirectoryServices;
 using swf = System.Windows.Forms;
 using System.Drawing;
-using System.DirectoryServices.AccountManagement;
 
 namespace Affirmations
 {
@@ -100,7 +99,24 @@ namespace Affirmations
 
         private string getFullName()
         {
-            var displayName = UserPrincipal.Current.DisplayName;
+            var searcher = new ManagementObjectSearcher("SELECT UserName FROM Win32_ComputerSystem");
+            var collection = searcher.Get();
+            var name = (string)collection.Cast<ManagementBaseObject>().First()["UserName"];
+            var displayName = name;
+
+            // Going for the gold
+            try
+            {
+                var directoryEntrySearch = "WinNT://" + name.Replace('\\', '/');
+                logToConsole("Searching for \"" + directoryEntrySearch + "\"");
+                var directoryEntry = new DirectoryEntry(directoryEntrySearch);
+                displayName = directoryEntry.Properties["fullName"].Value.ToString();
+                logToConsole("Name is \"" + displayName + "\"");
+            }
+            catch (NullReferenceException)
+            {
+                logToConsole("Name not found, using \"" + displayName + "\"");
+            }
 
             return displayName;
         }
@@ -157,12 +173,7 @@ namespace Affirmations
             greeting.Append("Hello, ");
 
             var fullName = getFullName();
-            var firstName = fullName;
-            var splitName = fullName.Split(' ');
-            if (splitName.Length > 0)
-            {
-                firstName = splitName[0];
-            }
+            var firstName = fullName.Split(' ')[0];
             greeting.Append(firstName);
 
             greeting.Append("!");
