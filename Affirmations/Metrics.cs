@@ -11,9 +11,12 @@ namespace Affirmations
         public bool IsPositive { get; protected set; }
         public double Milliseconds { get; protected set; }
 
+        public bool IsCalculated { get; protected set; }
+
         public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
+            this.IsCalculated = false;
             listenForHooks();
         }
 
@@ -25,6 +28,7 @@ namespace Affirmations
         public void CalculateMetrics()
         {
             this.IsPositive = true;
+            this.IsCalculated = true;
         }
     }
 }
