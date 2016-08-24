@@ -10,6 +10,9 @@ namespace Affirmations
     {
         public bool IsPositive { get; protected set; }
         public double Milliseconds { get; protected set; }
+        public int MouseClicks { get; protected set; }
+        public int MouseDistance { get; protected set; }
+        public int KeyboardPresses { get; protected set; }
 
         public bool IsCalculated { get; protected set; }
 
@@ -17,6 +20,9 @@ namespace Affirmations
         {
             this.Milliseconds = milliseconds;
             this.IsCalculated = false;
+            this.MouseClicks = 0;
+            this.MouseDistance = 0;
+            this.KeyboardPresses = 0;
             listenForHooks();
         }
 
@@ -27,8 +33,20 @@ namespace Affirmations
 
         public void CalculateMetrics()
         {
-            this.IsPositive = true;
+            this.MouseClicks = 452;
+            this.KeyboardPresses = 1023;
+
+            this.IsPositive = determineIfPositive(
+                this.MouseClicks, 
+                this.MouseDistance, 
+                this.KeyboardPresses, 
+                this.Milliseconds);
             this.IsCalculated = true;
+        }
+
+        private bool determineIfPositive(int p1, int p2, int p3, double p4)
+        {
+            return true;
         }
 
         public void Dispose()
