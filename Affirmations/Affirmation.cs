@@ -197,7 +197,7 @@ namespace Affirmations
             conditionSaying.AppendLine();
 
             var followupMessage = 
-                metrics.IsPositive ? "Keep up the good work!" : "Keep working hard!";
+                metrics.IsPositive ? "Keep up the good work!" : "Please work harder.";
 
             conditionSaying.Append(followupMessage);
 

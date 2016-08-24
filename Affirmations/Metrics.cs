@@ -46,7 +46,7 @@ namespace Affirmations
 
         private bool determineIfPositive(int p1, int p2, int p3, double p4)
         {
-            return true;
+            return false;
         }
 
         public void Dispose()
