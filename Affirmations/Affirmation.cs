@@ -98,6 +98,7 @@ namespace Affirmations
             sayThing(thingToSay, isPositive);
         }
 
+
         private string getFullName()
         {
             var displayName = UserPrincipal.Current.DisplayName;
