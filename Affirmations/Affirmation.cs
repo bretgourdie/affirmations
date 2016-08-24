@@ -19,6 +19,7 @@ namespace Affirmations
     public partial class Affirmation 
     {
         Timer timer;
+        Metrics metrics;
         string processTitle = "SDI Periodic Encouragement Program";
 
         public Affirmation()
@@ -32,17 +33,28 @@ namespace Affirmations
 
             this.timer.Elapsed += timer_Elapsed;
 
-            setTimerInterval(this.timer);
+            reloadComponents(this.timer, this.metrics);
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             logToConsole("Timer elapsed!");
-            sayStatus();
-            setTimerInterval(this.timer);
+            sayStatus(this.metrics);
+            reloadComponents(this.timer, this.metrics);
         }
 
-        private void sayStatus()
+        private void reloadComponents(Timer timer, Metrics metrics)
+        {
+            setTimerInterval(timer);
+            restartMetrics(metrics, timer.Interval);
+        }
+
+        private void restartMetrics(Metrics metrics, double milliseconds)
+        {
+            metrics = new Metrics(milliseconds);
+        }
+
+        private void sayStatus(Metrics metrics)
         {
             var thingToSay = new StringBuilder();
 
@@ -52,7 +64,7 @@ namespace Affirmations
             thingToSay.AppendLine();
             thingToSay.AppendLine();
 
-            var isPositive = calculatePositivity();
+            var isPositive = calculatePositivity(metrics);
 
             var condition = generateCondition(isPositive);
             thingToSay.Append(condition);
@@ -62,9 +74,9 @@ namespace Affirmations
             sayThing(thingToSay, isPositive);
         }
 
-        private bool calculatePositivity()
+        private bool calculatePositivity(Metrics metrics)
         {
-            return true;
+            return metrics.IsPositive;
         }
 
         [Conditional("DEBUG")]

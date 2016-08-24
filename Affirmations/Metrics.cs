@@ -9,9 +9,9 @@ namespace Affirmations
     public class Metrics
     {
         public bool IsPositive { get; protected set; }
-        public int Milliseconds { get; protected set; }
+        public double Milliseconds { get; protected set; }
 
-        public Metrics(int milliseconds)
+        public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
             calculateMetrics();
