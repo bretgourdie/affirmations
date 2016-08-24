@@ -33,25 +33,30 @@ namespace Affirmations
 
             this.timer.Elapsed += timer_Elapsed;
 
-            reloadComponents(this.timer, this.metrics);
+            reloadComponents();
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             logToConsole("Timer elapsed!");
+
+            metrics.CalculateMetrics();
             sayStatus(this.metrics);
-            reloadComponents(this.timer, this.metrics);
+
+            reloadComponents();
         }
 
-        private void reloadComponents(Timer timer, Metrics metrics)
+        private void reloadComponents()
         {
-            setTimerInterval(timer);
-            restartMetrics(metrics, timer.Interval);
+            setTimerInterval(this.timer);
+            this.metrics = restartMetrics(this.timer.Interval);
         }
 
-        private void restartMetrics(Metrics metrics, double milliseconds)
+        private Metrics restartMetrics(double milliseconds)
         {
-            metrics = new Metrics(milliseconds);
+            var metrics = new Metrics(milliseconds);
+
+            return metrics;
         }
 
         private void sayStatus(Metrics metrics)
@@ -137,7 +142,7 @@ namespace Affirmations
 
                 notification.ShowBalloonTip(5);
 
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(100000);
             }
         }
 
