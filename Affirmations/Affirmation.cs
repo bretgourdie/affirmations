@@ -67,21 +67,13 @@ namespace Affirmations
             thingToSay.Append(greeting);
 
             thingToSay.AppendLine();
-            thingToSay.AppendLine();
-
-            var isPositive = calculatePositivity(metrics);
 
             var condition = generateCondition(metrics);
             thingToSay.Append(condition);
 
             logToConsole("Saying status \"" + thingToSay.ToString() + "\"");
 
-            sayThing(thingToSay, isPositive);
-        }
-
-        private bool calculatePositivity(Metrics metrics)
-        {
-            return metrics.IsPositive;
+            sayThing(thingToSay, metrics.IsPositive);
         }
 
         [Conditional("DEBUG")]
