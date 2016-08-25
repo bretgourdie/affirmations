@@ -12,13 +12,14 @@ namespace Affirmations
         public bool IsPositive { get; protected set; }
         public double Milliseconds { get; protected set; }
         public bool IsCalculated { get; protected set; }
-        private PerformanceCounter performanceCounter { get; set; }
+        private Dictionary<Process, PerformanceCounter> cpuCounterDict { get; set; }
+        private Dictionary<Process, List<double>> cpuTimeDict { get; set; }
 
         public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
             initializePerformanceCounter();
-            //this.performanceCounter = new PerformanceCounter
+            this.cpuTimeDict = new Dictionary<Process, List<double>>();
             this.IsCalculated = false;
         }
 
@@ -32,6 +33,24 @@ namespace Affirmations
 
             processList.AddRange(pProcess);
             processList.AddRange(oProcess);
+
+            this.cpuCounterDict = new Dictionary<Process, PerformanceCounter>();
+            foreach (var proc in processList)
+            {
+                this.cpuCounterDict.Add(
+                    proc,
+                    new PerformanceCounter("Process", "% Processor Time", proc.ProcessName));
+            }
+        }
+
+        public void Tick()
+        {
+            foreach (var pair in this.cpuCounterDict)
+            {
+                var cpu = pair.Value.NextValue();
+
+                this.cpuTimeDict[pair.Key].Add(cpu);
+            }
         }
 
         [Conditional("DEBUG")]
