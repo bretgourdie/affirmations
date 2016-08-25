@@ -11,14 +11,12 @@ namespace Affirmations
     {
         public bool IsPositive { get; protected set; }
         public double Milliseconds { get; protected set; }
-        public int KeyboardPresses { get; protected set; }
         public bool IsCalculated { get; protected set; }
 
         public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
             this.IsCalculated = false;
-            this.KeyboardPresses = 0;
         }
 
         [Conditional("DEBUG")]
@@ -30,7 +28,7 @@ namespace Affirmations
         public void CalculateMetrics()
         {
             this.IsPositive = determineIfPositive(
-                this.KeyboardPresses, 
+                0,
                 this.Milliseconds);
             this.IsCalculated = true;
 

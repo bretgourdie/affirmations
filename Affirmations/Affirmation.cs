@@ -196,7 +196,7 @@ namespace Affirmations
 
             conditionSaying.AppendLine(" today.");
 
-            conditionSaying.AppendLine("Keyboard Presses: " + metrics.KeyboardPresses);
+            conditionSaying.AppendLine("Some number: ");
             conditionSaying.AppendLine();
 
             var followupMessage = 
