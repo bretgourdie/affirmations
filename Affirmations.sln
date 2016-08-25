@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SystemHookCore", "SystemHookCore\SystemHookCore.vcxproj", "{A558485A-58F7-4748-A0BE-EE1BB01732F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedHooks", "ManagedHooks\ManagedHooks.csproj", "{C88B254C-9091-4D14-B8CE-8A79135E9DA0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A558485A-58F7-4748-A0BE-EE1BB01732F5} = {A558485A-58F7-4748-A0BE-EE1BB01732F5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
