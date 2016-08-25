@@ -196,8 +196,6 @@ namespace Affirmations
 
             conditionSaying.AppendLine(" today.");
 
-            conditionSaying.AppendLine("Mouse Clicks: " + metrics.MouseClicks);
-
             conditionSaying.AppendLine("Keyboard Presses: " + metrics.KeyboardPresses);
             conditionSaying.AppendLine();
 
