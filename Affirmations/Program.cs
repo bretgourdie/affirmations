@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Affirmations
 {
@@ -15,7 +16,8 @@ namespace Affirmations
         {
             new Affirmation();
 
-            Console.ReadKey(true);
+            var autoEvent = new AutoResetEvent(false);
+            autoEvent.WaitOne();
         }
     }
 }
