@@ -27,6 +27,11 @@ namespace Affirmations
             initializeClass();
         }
 
+        public void Wait()
+        {
+            System.Threading.Thread.Yield();
+        }
+
         private void initializeClass()
         {
             this.timer = new Timer();
