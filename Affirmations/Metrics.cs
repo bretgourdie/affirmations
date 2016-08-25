@@ -12,11 +12,26 @@ namespace Affirmations
         public bool IsPositive { get; protected set; }
         public double Milliseconds { get; protected set; }
         public bool IsCalculated { get; protected set; }
+        private PerformanceCounter performanceCounter { get; set; }
 
         public Metrics(double milliseconds)
         {
             this.Milliseconds = milliseconds;
+            initializePerformanceCounter();
+            //this.performanceCounter = new PerformanceCounter
             this.IsCalculated = false;
+        }
+
+        protected void initializePerformanceCounter()
+        {
+            var processList = new List<Process>();
+
+            var pProcess = Process.GetProcessesByName("prowin32.exe");
+
+            var oProcess = Process.GetProcessesByName("order_entry_o0001.exe");
+
+            processList.AddRange(pProcess);
+            processList.AddRange(oProcess);
         }
 
         [Conditional("DEBUG")]
